@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit colors="true">
+    <php>
+        <!-- Database configuration -->
+        <server name="DB_HOST" value="localhost"/>
+        <server name="DB_USER" value="root"/>
+        <server name="DB_PASS" value=""/>
+        <server name="DB_NAME" value="train"/>
+    </php>
+    <testsuite name="Nom Application">
+        <directory>./tests</directory>
+    </testsuite>
+</phpunit>
