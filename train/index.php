@@ -7,7 +7,7 @@
     <div class="login-box">
     <h2>Login</h2>
     <form>
-        <div class="user-box">
+        <div class="user-box">  
         <input type="text" name="" required="">
         <label>Username</label>
     </div>
