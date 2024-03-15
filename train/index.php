@@ -8,6 +8,8 @@
     <h2>Connexion</h2>
     <form action="verif.php" method="post">
         <div class="user-box">
+    <form>
+        <div class="user-box">
         <input type="text" name="" required="">
         <label>Utilisateur</label>
     </div>
@@ -16,7 +18,7 @@
         <label>mot de passe</label>
     </div>
     <a href="php/register.php" id="register">Pas encore de compte ? Cliquez ici</a>
-    <a href="#" id="toto">
+    <a href="#">
         <span></span>
         <span></span>
         <span></span>
