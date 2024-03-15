@@ -53,6 +53,22 @@ html {
     pointer-events: none;
     transition: .5s;
   }
+
+  #register
+  {
+    font-size: 11px;
+    color: #1055f7b2;
+    margin-top: 0;
+    padding-left: 0px;
+    padding-top: 0px;
+    top: -10px;
+    letter-spacing: 1px;
+  }
+
+  #register:hover
+  {
+    background-color: transparent;
+  }
   
   .login-box .user-box input:focus ~ label,
   .login-box .user-box input:valid ~ label {
@@ -74,6 +90,16 @@ html {
     transition: .5s;
     margin-top: 40px;
     letter-spacing: 4px;
+  }
+
+  .login-box form a input {
+    position: relative;
+    display: inline-block;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    background-color: transparent;
+    border-color: transparent;
   }
   
   .login-box a:hover {
