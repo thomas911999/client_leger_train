@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../php/verif.php';
+require_once __DIR__ . '/../php/login/verif.php';
 
 use PHPUnit\Framework\TestCase;
 
@@ -17,6 +17,25 @@ class RegisterLoginTest extends TestCase
         $md5 = "0cbc6611f5540bd0809a388dc95a615b";
         $test_function = pass_crypt($pwd);
         $this->assertEquals( $test_function , $md5 ,"Le mot de passse n'est pas crypté correctement attendu: $md5 , resultat : $test_function");
+    }
+
+    public function testloginOK(): void
+    {
+        $login = "admin";
+        $pass = "admin";
+        $test_function = check_login($login,$pass);
+        $this->assertTrue( $test_function , "Le mot de passse ou le login n'est pas bon");
+        $this->assertEquals( $_SESSION["login"] , $login ,"Oublie de la session login");
+
+    }
+
+    public function testloginFAIL(): void
+    {
+        $login = "admin";
+        $pass = "admi";
+        $test_function = check_login($login,$pass);
+        $this->assertNotTrue( $test_function , "Login et mot de passe correct mais la fonction est fausse , erreur dans le login ou mdp");
+        $this->assertEquals( $_SESSION["login"] , null ,"Session fail mais initier");
     }
 
     /**

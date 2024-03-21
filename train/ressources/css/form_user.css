@@ -71,7 +71,7 @@ html {
   }
   
   .login-box .user-box input:focus ~ label,
-  .login-box .user-box input:valid ~ label {
+  .login-box .user-box  ~ label {
     top: -20px;
     left: 0;
     color: #1055f7b2;

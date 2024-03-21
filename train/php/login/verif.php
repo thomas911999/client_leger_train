@@ -1,6 +1,6 @@
 <?php
 
-include "bdd.php";
+include "../bdd.php";
 
 function pass_crypt($pwd) : string
 {
@@ -19,6 +19,8 @@ function check_login($login, $pwd)
     $count = $prep->rowCount();
     if ($count == 1)
         $_SESSION["login"] = $login;
+    else
+        $_SESSION["login"] = null;
     return $count == 1;
 }
 

@@ -17,7 +17,7 @@
         <input type="password" name="pass" required="">
         <label>mot de passe</label>
     </div>
-    <a href="php/register.php" id="register">Pas encore de compte ? Cliquez ici</a>
+    <a href="php/login/register.php" id="register">Pas encore de compte ? Cliquez ici</a>
     <a href="#">
         <span></span>
         <span></span>
