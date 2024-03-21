@@ -10,11 +10,11 @@
         <div class="user-box">
     <form>
         <div class="user-box">
-        <input type="text" name="" required="">
+        <input type="text" name="name" required="">
         <label>Utilisateur</label>
     </div>
     <div class="user-box">
-        <input type="password" name="" required="">
+        <input type="password" name="pass" required="">
         <label>mot de passe</label>
     </div>
     <a href="php/register.php" id="register">Pas encore de compte ? Cliquez ici</a>
