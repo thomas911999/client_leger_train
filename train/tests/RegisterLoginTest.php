@@ -11,13 +11,6 @@ class RegisterLoginTest extends TestCase
      *
      * @return void
      */
-    public function testMd5(): void
-    {
-        $pwd = "Test";
-        $md5 = "0cbc6611f5540bd0809a388dc95a615b";
-        $test_function = pass_crypt($pwd);
-        $this->assertEquals( $test_function , $md5 ,"Le mot de passse n'est pas crypté correctement attendu: $md5 , resultat : $test_function");
-    }
 
     public function testloginOK(): void
     {

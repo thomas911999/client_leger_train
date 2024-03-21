@@ -1,27 +1,29 @@
 <?php
 
-include "../bdd.php";
+require_once __DIR__ . '/../bdd.php';
 
-function pass_crypt($pwd) : string
-{
-    return md5($pwd);
+function pass_hash($password) {
+    // Use bcrypt for password hashing
+    return password_hash($password, PASSWORD_DEFAULT);
 }
 
-function check_login($login, $pwd)
-{
+function check_login($login, $password) {
     $bdd = DatabaseConnection();
-    $req = "SELECT login, mdp FROM user WHERE login = ? AND mdp = ? ";
-    $pwd = md5($pwd);
-    $prep = $bdd->prepare($req);
-    $prep->bindParam(1, $login);
-    $prep->bindParam(2, $pwd);
-    $prep->execute();
-    $count = $prep->rowCount();
-    if ($count == 1)
+    $query = "SELECT login, mdp FROM user WHERE login = ?";
+    
+    $statement = $bdd->prepare($query);
+    $statement->bindParam(1, $login);
+    $statement->execute();
+    
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    
+    if ($user && password_verify($password, $user['mdp'])) {
         $_SESSION["login"] = $login;
-    else
+        return true;
+    } else {
         $_SESSION["login"] = null;
-    return $count == 1;
+        return false;
+    }
 }
 
 function home_page()

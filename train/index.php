@@ -6,7 +6,7 @@
 <body>
     <div class="login-box">
     <h2>Connexion</h2>
-    <form action="verif.php" method="post">
+    <form action="php/login/verif.php" method="post">
         <div class="user-box">
     <form>
         <div class="user-box">
