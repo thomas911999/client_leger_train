@@ -18,10 +18,18 @@
         <?php
 require_once __DIR__ . '/../bdd.php';
 $bdd = DatabaseConnection();
+
+
+$id_train = $_POST['id_train'];
+$h_dep = $_POST['h_dep'];
+$v_arr = $_POST['v_arr'];
+$v_dep = $_POST['v_dep'];
+
 $enfant=$_POST["enfant"];
 $adulte=$_POST["adulte"];
 $senior=$_POST["senior"];
-$query = "insert into reservation(nb_adulte,nb_senior,nb_enfant,id_voyageur) values('$adulte','$senior','$enfant',1)";
+$date = date('Y-m-d H:i'); // Format YYYY-MM-DD HH:MM
+$query = "insert into reservation(nb_adulte,nb_senior,nb_enfant,id_voyageur,date_reservation,id_train, v_depart, H_depart, v_arrivee ) values('$adulte','$senior','$enfant',1, '$date','$id_train','$v_dep', '$h_dep', '$v_arr' )";
 $statement = $bdd->prepare($query);
 $statement->execute();
 

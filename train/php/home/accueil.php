@@ -18,7 +18,7 @@
 <?php
 require_once __DIR__ . '/../bdd.php';
 $bdd = DatabaseConnection();
-$query = "SELECT id_train, capacite, modele, villedep, villearrivee,image FROM train";
+$query = "SELECT id_train, V_DEPART, V_ARRIVEE,H_DEPART, image, modele  FROM billet natural join train ";
 $statement = $bdd->prepare($query);
 $statement->execute();
 while ($train = $statement->fetch(PDO::FETCH_OBJ)) {
@@ -30,9 +30,9 @@ while ($train = $statement->fetch(PDO::FETCH_OBJ)) {
                 <img src="../../<?=$train->image;?>">
                     <div class='card-body'>
                         <h2 class='card-subtitle'><?php echo $train->modele; ?></h2>
-                        <h3 class='card-subtitle'><em><?php echo $train->villedep; ?> </em> vers <em> <?php echo $train->villearrivee; ?> </em> </h3>
-                        <h5 class='card-subtitle'><?php echo $train->capacite; ?> places</h5>
-                        <a href='reservation.php?choix=<?=$train->id_train?>'><button type="button" class="btn btn-primary">Réserver</button></a>
+                        <!-- <h3 class='card-subtitle'><em><?php// echo $train->villedep; ?> </em> vers <em> <?php// echo $train->villearrivee; ?> </em> </h3> !-->
+                       <!-- <h5 class='card-subtitle'><?php //echo $train->capacite; ?> places</h5> -->
+                        <a href='reservation.php?choix=<?=$train->id_train?>&v_dep=<?=$train->V_DEPART?>&v_arr=<?=$train->V_ARRIVEE?>&h_dep=<?=$train->H_DEPART?>'><button type="button" class="btn btn-primary">Réserver</button></a>
                     </div>
                 </div>
             </div>
