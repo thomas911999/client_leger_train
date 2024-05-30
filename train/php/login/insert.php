@@ -27,7 +27,8 @@ $stmt = $bdd->prepare($sql);
  $stmt->bindParam(':adresse', $adresse);
  $stmt->bindParam(':cp', $cp);
  $stmt->bindParam(':login', $login);
- $stmt->bindParam(':pass', $pass);
+ $mdp = password_hash( $pass, PASSWORD_DEFAULT);
+ $stmt->bindParam(':pass', $mdp);
 
  // Exécution de la déclaration
  $stmt->execute();
