@@ -1,4 +1,20 @@
-<!doctype html>
+<?php
+
+session_start();
+
+// Vérifier si l'utilisateur est connecté
+
+if (!isset($_SESSION['login'])) {
+
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+
+    header("Location: ../../index.php");
+
+    exit;
+
+}
+
+?><!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -14,14 +30,27 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="accueil.php">Accueil</a>
+          <a class="nav-link active" aria-current="page" href="historique.php">Mes voyages</a>
+          <a href="logout.php">Déconnexion</a>
         </li>
 <?php
 require_once __DIR__ . '/../bdd.php';
 $bdd = DatabaseConnection();
-$query = "SELECT id_train, V_DEPART, V_ARRIVEE,H_DEPART, image, modele  FROM billet natural join train ";
+$query = "SELECT id_train, V_DEPART, V_ARRIVEE,H_DEPART, image, modele, prix_billet  FROM billet natural join train ";
 $statement = $bdd->prepare($query);
 $statement->execute();
 while ($train = $statement->fetch(PDO::FETCH_OBJ)) {
+
+  $query = "SELECT id_ville, libelle  FROM ville WHERE  id_ville='$train->V_DEPART'";
+  $statement_dep = $bdd->prepare($query);
+  $statement_dep->execute();
+  $v_dep = $statement_dep->fetch(PDO::FETCH_OBJ)->libelle; 
+  
+  $query = "SELECT id_ville, libelle  FROM ville WHERE  id_ville='$train->V_ARRIVEE'";
+  $statement_arr = $bdd->prepare($query);
+  $statement_arr->execute();
+  $v_arrivee = $statement_arr->fetch(PDO::FETCH_OBJ)->libelle;
+
     ?>
     <section id='principale'>
         <div class='container-fluid'>
@@ -30,8 +59,8 @@ while ($train = $statement->fetch(PDO::FETCH_OBJ)) {
                 <img src="../../<?=$train->image;?>">
                     <div class='card-body'>
                         <h2 class='card-subtitle'><?php echo $train->modele; ?></h2>
-                        <!-- <h3 class='card-subtitle'><em><?php// echo $train->villedep; ?> </em> vers <em> <?php// echo $train->villearrivee; ?> </em> </h3> !-->
-                       <!-- <h5 class='card-subtitle'><?php //echo $train->capacite; ?> places</h5> -->
+                        <h3 class='card-subtitle'><em><?php echo $v_dep; ?> </em> vers <em> <?php echo $v_arrivee; ?> </em> </h3>
+                       <h5 class='card-subtitle'><?php echo $train->prix_billet; ?> €</h5>
                         <a href='reservation.php?choix=<?=$train->id_train?>&v_dep=<?=$train->V_DEPART?>&v_arr=<?=$train->V_ARRIVEE?>&h_dep=<?=$train->H_DEPART?>'><button type="button" class="btn btn-primary">Réserver</button></a>
                     </div>
                 </div>

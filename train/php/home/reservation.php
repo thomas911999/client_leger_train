@@ -1,3 +1,18 @@
+<?
+session_start();
+
+// Vérifier si l'utilisateur est connecté
+
+if (!isset($_SESSION['login'])) {
+
+    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+
+    header("Location: ../../index.php");
+
+    exit;
+
+}
+?>
 <!doctype html>
 <html lang="en">
   <head>
