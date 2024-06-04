@@ -1,18 +1,3 @@
-<?
-session_start();
-
-// Vérifier si l'utilisateur est connecté
-
-if (!isset($_SESSION['login'])) {
-
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
-
-    header("Location: ../../index.php");
-
-    exit;
-
-}
-?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -23,20 +8,23 @@ if (!isset($_SESSION['login'])) {
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
   <body>
-  <nav class="navbar navbar-expand-lg bg-primary">
+  <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="accueil.php">Accueil</a>
+          <a class="nav-link active" aria-current="page" href="logout.php">Déconnexion</a>
         </li>
         <?php
 require_once __DIR__ . '/../bdd.php';
 $bdd = DatabaseConnection();
+
 $libelle=$_GET["choix"];
 $libelle_dep=$_GET["v_dep"];
 $libelle_arr=$_GET["v_arr"];
 $libelle_h=$_GET["h_dep"];
+$userId=$_GET["user"];
 $query = "SELECT id_train, image, modele, V_DEPART,H_DEPART  FROM billet natural join train where id_train='$libelle'";
 $statement = $bdd->prepare($query);
 $statement->execute();
@@ -51,19 +39,19 @@ $statement_arr = $bdd->prepare($query);
 $statement_arr->execute();
 $v_arrivee = $statement_arr->fetch(PDO::FETCH_OBJ)->libelle;
 
-while ($train = $statement->fetch(PDO::FETCH_OBJ)) {
+while ($train = $statement->fetch(PDO::FETCH_OBJ)) { 
     ?>
     <section id='principale'>
         <div class='container-fluid'>
             <div class='row'>
-                <div class='card col-3' style='width: 18rem;'>
+                <div class='card col-3 bg-secondary' style='width: 18rem;'>
                 <img src="../../<?=$train->image;?>">
                     <div class='card-body'>
-                    <h2 class='card-subtitle'><?php echo $train->modele; ?></h2>
+                    <h5 class='card-subtitle'><?php echo $train->modele; ?></h5>
                        <h3 class='card-subtitle'><em><?php echo $v_dep ?> </em> vers <em> <?php echo $v_arrivee ?> </em> </h3> 
                         <h5 class='card-subtitle'><?php echo $train->H_DEPART; ?> </h5>
                         <form action="panier.php" method="POST">
-                        <div class="container bg-secondary">
+                        <div class="container">
   <div class="mb-3 mt-3 ms-3 me-3">
     <label for="exampleInputEmail1" class="form-label text-light">Enfant</label>
     <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nombre d'enfants" name="enfant">
@@ -80,7 +68,8 @@ while ($train = $statement->fetch(PDO::FETCH_OBJ)) {
    <input type="hidden" name="h_dep" value="<?php echo $libelle_h?>">
    <input type="hidden" name="v_arr" value="<?php echo $libelle_arr?>">
    <input type="hidden" name="v_dep" value="<?php echo $libelle_dep?>">
-   <button type="submit" class="btn btn-primary">Valider</button>
+   <input type="hidden" name="choix" value="<?php echo $userId;?>">
+  <button type="submit" class="btn btn-primary">Valider</button>
 </div>
                   </form>
                        </div>
