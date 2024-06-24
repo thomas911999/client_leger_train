@@ -5,7 +5,7 @@ try{
     $bdd = DatabaseConnection();
 
 // Configuration du mode d'erreur de PDO
-$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 // Récupération des données du formulaire
 $prenom = isset($_POST['prenom']) ? $_POST['prenom'] : '';
@@ -27,8 +27,7 @@ $stmt = $bdd->prepare($sql);
  $stmt->bindParam(':adresse', $adresse);
  $stmt->bindParam(':cp', $cp);
  $stmt->bindParam(':login', $login);
- $mdp = password_hash( $pass, PASSWORD_DEFAULT);
- $stmt->bindParam(':pass', $mdp);
+ $stmt->bindParam(':pass', $pass);
 
  // Exécution de la déclaration
  $stmt->execute();
